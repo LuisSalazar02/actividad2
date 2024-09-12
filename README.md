@@ -1,5 +1,9 @@
 # Manual de uso snake.py
 
+## Caracteristicas:
+Con las modificaciones realizadas, tanto la comida como la serpiente contaran con colores aleatorios definidos
+De igual forma, la comida se moverá una sola celda, asegurando que no salga del espacio de la pantalla.
+
 ## `defineColors`
 
 La función `defineColors` selecciona aleatoriamente dos colores distintos de una lista predefinida y los devuelve.
@@ -23,6 +27,11 @@ snakeColor, foodColor = defineColors()
 print(f"Color de la serpiente: {snakeColor}")
 print(f"Color de la comida: {foodColor}")
 ```
+
+### move_food
+- Es una función auxiliar para mover la comida a una celda contigua, asegurando que esta no salga de la ventana
+ ademas de asegurarse que la nueva posición no choque con alguna parte del cuerpo de la serpiente pera evitar errores.
+
 
 ### Notas
 

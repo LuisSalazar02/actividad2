@@ -16,6 +16,30 @@ from freegames import square, vector
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+window_height = 420
+window_width = 420
+
+def move_food():
+    """Move food to an adjacent contiguous grid cell."""
+    while True:
+        # Generate random dx and dy from [-10, 10] for contiguous cell movement
+        dx = randrange(-10, 11, 10)
+        dy = randrange(-10, 11, 10)
+
+        # Ensure dx and dy are not both zero
+        if dx == 0 and dy == 0:
+            continue
+
+        # Calculate new food position
+        new_x = food.x + dx
+        new_y = food.y + dy
+
+        # Ensure the new position is within window boundaries
+        if 0 <= new_x < window_width and 0 <= new_y < window_height:
+            # Ensure new position does not overlap with snake
+            if not any(segment.x == new_x and segment.y == new_y for segment in snake):
+                food.x, food.y = new_x, new_y
+                break
 
 def defineColors():
     colorArray = ["black", "green", "blue", "orange", "pink"]
@@ -24,7 +48,7 @@ def defineColors():
     colorArray.pop(randomNumber)
     randomNumber = randrange(0, len(colorArray))
     foodColor = colorArray[randomNumber]
-    
+
     return snakeColor, foodColor
 
 def change(x, y):
@@ -50,8 +74,7 @@ def move():
 
     if head == food:
         print('Snake:', len(snake))
-        food.x = randrange(-15, 15) * 10
-        food.y = randrange(-15, 15) * 10
+        move_food()  # Move the food to a new position
     else:
         snake.pop(0)
 
@@ -65,7 +88,7 @@ def move():
     ontimer(move, 100)
 
 snakeColor, foodColor = defineColors()
-setup(420, 420, 370, 0)
+setup(window_width, window_height, 370, 0)
 hideturtle()
 tracer(False)
 listen()
